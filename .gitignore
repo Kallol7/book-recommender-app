@@ -1,0 +1,14 @@
+# only in the root folder
+/env
+
+# __pycache__ anywhere
+__pycache__/
+
+# to protect the api keys, create a .env.example file at the very last stage
+.env
+
+# This is a common practice for database files, as they can be large and frequently changing
+db.sqlite3
+
+# vscode configurations
+.vscode
