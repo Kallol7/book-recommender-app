@@ -1,5 +1,9 @@
 {% extends "recommender/base.html" %}
 
 {% block content %}
-    <p>Welcome!</p>
+<ul>
+    {% for closest in closests%}
+        <li>{{closest}}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

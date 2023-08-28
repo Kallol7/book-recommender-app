@@ -12,3 +12,7 @@ db.sqlite3
 
 # vscode configurations
 .vscode
+
+# some important json hidden
+config/recommender/scripts/*json
+config/recommender/scripts/clean_text.py
