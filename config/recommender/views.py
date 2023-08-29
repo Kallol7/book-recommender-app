@@ -10,9 +10,8 @@ def home(request):
 
 def update(request):
     updates = recommend.update()
-    print(len(updates))
-    print(len(updates))
-    print(len(updates))
-    print(len(updates))
-    print(len(updates))
     return render(request, "recommender/update.html", {"updates": updates})
+
+def recommend_view(request):
+    recommendations = recommend.recommendations()
+    return render(request, "recommender/recommend.html", {"all_recommendations": recommendations})

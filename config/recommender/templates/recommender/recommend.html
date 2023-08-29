@@ -1,0 +1,17 @@
+{% extends "recommender/base.html" %}
+
+{% block content %}
+
+<ul>
+    {% for recommendations in all_recommendations %}
+    <li>{{recommendations.name}}</li>
+    <ul>
+            <li>{{ recommendations.rec1 }}</li>
+            <li>{{ recommendations.rec2 }}</li>
+            <li>{{ recommendations.rec3 }}</li>
+    </ul>
+    <br>
+    {% endfor %}  
+</ul>
+
+{% endblock %}

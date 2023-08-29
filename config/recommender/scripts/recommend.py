@@ -20,7 +20,6 @@ def update():
             if difference.seconds<18000:
                 msg = f"Can't update '{book_to_update}' before five hours from last update"
                 updates.append(msg)
-                print(msg)
             
             else:
                 book.rec1, book.rec2, book.rec3 = recommend(book_name=book_to_update)
@@ -28,7 +27,6 @@ def update():
                 book.save()
                 msg = f"'{book_to_update}' updated"
                 updates.append(msg)
-                print(msg)
             
         except Book.DoesNotExist:
             book = Book()
@@ -37,7 +35,6 @@ def update():
             book.save()
             msg = f"'{book_to_update}' updated"
             updates.append(msg)
-            print(msg)
     
     return updates
 
@@ -46,6 +43,9 @@ def recommend(book_name="নক্ষত্রের রাত", df = None):
         df = dictionary_to_dataframe(books_dict)
     closest = find_closest_books_with_pca(df, book_name, num_closest=3)
     return closest
+
+def recommendations():
+    return Book.objects.all()
 
 if __name__=="__name__":
     df = dictionary_to_dataframe(books_dict)
