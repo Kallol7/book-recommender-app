@@ -1,13 +1,49 @@
 import json
 from .data_restructuring import dictionary_to_dataframe
 from .cosine_with_pca import find_closest_books_with_pca
+from recommender.models import Book
+from django.utils import timezone
 
 books_dict = {}
 with open("recommender/scripts/cleaned_one.json", 'r',encoding="utf-8") as f:
     books_dict = json.load(f)
 
-def recommend(book_name="নক্ষত্রের রাত"):
+def update():
     df = dictionary_to_dataframe(books_dict)
+    books_to_update = list(df.index)
+    updates = list()
+
+    for book_to_update in books_to_update:    
+        try:
+            book = Book.objects.get(name=f"{book_to_update}")
+            difference = timezone.now() - book.last_update
+            if difference.seconds<18000:
+                msg = f"Can't update '{book_to_update}' before five hours from last update"
+                updates.append(msg)
+                print(msg)
+            
+            else:
+                book.rec1, book.rec2, book.rec3 = recommend(book_name=book_to_update)
+                book.last_update = timezone.now()
+                book.save()
+                msg = f"'{book_to_update}' updated"
+                updates.append(msg)
+                print(msg)
+            
+        except Book.DoesNotExist:
+            book = Book()
+            book.name = book_to_update
+            book.rec1, book.rec2, book.rec3 = recommend(book_name=book_to_update)
+            book.save()
+            msg = f"'{book_to_update}' updated"
+            updates.append(msg)
+            print(msg)
+    
+    return updates
+
+def recommend(book_name="নক্ষত্রের রাত", df = None):
+    if not df:
+        df = dictionary_to_dataframe(books_dict)
     closest = find_closest_books_with_pca(df, book_name, num_closest=3)
     return closest
 

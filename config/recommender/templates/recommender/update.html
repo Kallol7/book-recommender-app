@@ -1,0 +1,9 @@
+{% extends "recommender/base.html" %}
+
+{% block content %}
+<ul>
+    {% for update in updates %}
+        <li>{{ update }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
