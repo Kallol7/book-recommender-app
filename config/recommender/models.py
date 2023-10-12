@@ -17,3 +17,8 @@ class Book(models.Model):
     rec2 = models.fields.CharField(max_length=120,null=True,blank=True)
     rec3 = models.fields.CharField(max_length=120,null=True,blank=True)
     last_update = models.fields.DateTimeField(auto_now_add=True, blank=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'writer'], name='unique_books')
+        ]
