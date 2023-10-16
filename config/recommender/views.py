@@ -7,7 +7,7 @@ from .scripts.clean_one import clean_one
 # Create your views here.
 def home(request):
     book_name = "নক্ষত্রের রাত"
-    closests = recommend.recommend(book_name)
+    closests = recommend.recommend_from_csv(book_name)
     return render(request, "recommender/home.html", {"closests": closests})
 
 def clean(request):
@@ -20,5 +20,8 @@ def update(request):
     return render(request, "recommender/update.html", {"updates": updates})
 
 def recommend_view(request):
-    recommendations = recommend.recommendations()
-    return render(request, "recommender/recommend.html", {"all_recommendations": recommendations})
+    # recommendations = recommend.recommendations()
+    # return render(request, "recommender/recommend.html", {"all_recommendations": recommendations})
+
+    csv_html = recommend.get_csv_as_html()
+    return render(request, "recommender/recommend.html", {'csv_html': csv_html})

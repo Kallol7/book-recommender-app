@@ -3,6 +3,7 @@ from .data_restructuring import dictionary_to_dataframe
 from .cosine_with_pca import find_closest_books_with_pca
 from recommender.models import Book
 from django.utils import timezone
+import pandas as pd
 
 books_dict = {}
 with open("recommender/scripts/cleaned_one.json", 'r',encoding="utf-8") as f:
@@ -10,7 +11,7 @@ with open("recommender/scripts/cleaned_one.json", 'r',encoding="utf-8") as f:
 
 def update():
     df = dictionary_to_dataframe(books_dict)
-    books_to_update = list(df.index)
+    books_to_update = set(df.index)
     updates = list()
 
     for book_to_update in books_to_update:    
@@ -46,6 +47,17 @@ def recommend(book_name="নক্ষত্রের রাত", df = None):
 
 def recommendations():
     return Book.objects.all()
+
+def recommend_from_csv(book_name):
+    df = pd.read_csv("recommender/scripts/lda_result_400K_stopper.csv", index_col=0, header=0)
+    if book_name in df.index:
+        return df.loc[book_name]
+    else:
+        return ["Not Found"]
+
+def get_csv_as_html():
+    df = pd.read_csv("recommender/scripts/lda_result_400K_stopper.csv", index_col=0, header=0)
+    return df.to_html()
 
 if __name__=="__name__":
     df = dictionary_to_dataframe(books_dict)

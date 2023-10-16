@@ -18,3 +18,5 @@ config/recommender/scripts/*json
 config/recommender/scripts/clean_text.py
 config/recommender/scripts/lda_demo.ipynb
 config/recommender/scripts/lda_result.csv
+config/recommender/scripts/out.json
+config/recommender/scripts/lda_result*.csv

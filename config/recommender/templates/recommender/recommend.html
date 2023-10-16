@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<ul>
+{{ csv_html | safe }}
+
+<!-- <ul>
     {% for recommendations in all_recommendations %}
     <li>{{recommendations.name}}</li>
     <ul>
@@ -12,6 +14,6 @@
     </ul>
     <br>
     {% endfor %}  
-</ul>
+</ul> -->
 
 {% endblock %}
