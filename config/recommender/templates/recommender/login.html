@@ -12,7 +12,7 @@
             <h6 class="alert-heading m-0 p-2">Incorrect username or password</h6>
         </div>
         {% endif %}
-        <form method="post" action="{% url 'login' %}">
+        <form method="post" action="{% url 'login' %}" if="loginform">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>

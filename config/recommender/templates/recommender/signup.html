@@ -3,17 +3,27 @@
 {% block content %}
 <div class="row">
     <div class="col-4 mx-auto px-5 py-5 form-container">
-        <form method="post" action="{% url 'signup' %}">
+        <form method="post" action="{% url 'signup' %}" id="signupform">
             {% csrf_token %}
             <div class="mb-3">
-                <label for="fullname" class="form-label">Full Name</label>
-                <input type="text" placeholder="enter your full name" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="fullname" name="fullname" aria-describedby="userHelp" required>
-                <!-- <div id="emailHelp" class="form-text">Please enter your full name.</div> -->
+                <label for="fullname" class="form-label">Name</label>
+                <input type="text" placeholder="Full Name" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="fullname" name="fullname" aria-describedby="nameHelp" required>
+                <!-- <div id="nameHelp" class="form-text">Please enter your full name.</div> -->
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" placeholder="your email" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
-                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                <input type="email" 
+                    placeholder = " {% if useralredyexists %}Enter a valid email address{% else %}Enter email{% endif %} " 
+                    onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="email" 
+                    name="email" aria-describedby="emailHelp" 
+                required>
+                {% if useralredyexists %}
+                <div id="emailHelp" class="form-text">
+                    <span class="text-danger" role="alert">
+                        Email already taken!
+                    </span>
+                </div>
+                {% endif %}
             </div>
             <div class="mb-3">
                 <label for="pass1" class="form-label">Password</label>

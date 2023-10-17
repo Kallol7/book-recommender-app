@@ -5,6 +5,7 @@ from .scripts.create_one_json import create_one_json
 from .scripts.clean_one import clean_one
 from django.contrib.auth import authenticate, login
 from .models import User
+from django.db import IntegrityError
 
 # Create your views here.
 def home(request):
@@ -37,9 +38,13 @@ def signup_page(request):
         if pass1 != pass2:
             return render(request, "recommender/signup.html", {"passdidnotmatch": True})
         if fullname and email and pass1:
-            user = User.objects.create(username=email,email=email,password=pass1, fullname=fullname)
-            user.save()
-            return render(request, "recommender/login.html", {"usercreated": True})
+            try:
+                user = User.objects.create(username=email,email=email,password=pass1, fullname=fullname)
+            except IntegrityError:
+                return render(request, "recommender/signup.html", {"useralredyexists": True})
+            else:
+                user.save()
+                return render(request, "recommender/login.html", {"usercreated": True})
     return render(request, "recommender/signup.html", {})
 
 def login_page(request):
