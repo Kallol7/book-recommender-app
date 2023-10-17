@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime 
+from django.contrib.auth.models import AbstractUser 
 
 # Create your models here.
 class Writer(models.Model):
@@ -22,3 +22,6 @@ class Book(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['name', 'writer'], name='unique_books')
         ]
+
+class User(AbstractUser):
+    fullname = models.CharField(max_length=100)

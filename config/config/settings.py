@@ -100,6 +100,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# required for creating custom user, User(AbstractUser) inside recommender/models.py
+AUTH_USER_MODEL = "recommender.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

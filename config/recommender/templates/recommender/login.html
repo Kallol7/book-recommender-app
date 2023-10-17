@@ -7,6 +7,10 @@
         <div class="alert alert-success my-4 py-0 text-green text-center" role="alert">
             <h6 class="alert-heading m-0 p-2">Welcome!</h6>
         </div>
+        {% elif userorpasserror %}
+        <div class="alert alert-danger my-4 py-0 text-red text-center" role="alert">
+            <h6 class="alert-heading m-0 p-2">Incorrect username or password</h6>
+        </div>
         {% endif %}
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
@@ -16,8 +20,8 @@
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
-                <label for="pass1" class="form-label">Password</label>
-                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="pass1" name="pass1" required>
+                <label for="passwd" class="form-label">Password</label>
+                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="passwd" name="passwd" required>
                 <!-- <div id="passwordHelp" class="form-text">Enter your password</div> -->
             </div>
             <button type="submit" class="btn btn-outline-secondary btn-hover">Submit</button>

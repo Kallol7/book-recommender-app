@@ -3,7 +3,8 @@ from django.shortcuts import render
 from .scripts import recommend
 from .scripts.create_one_json import create_one_json
 from .scripts.clean_one import clean_one
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from .models import User
 
 # Create your views here.
 def home(request):
@@ -29,17 +30,28 @@ def recommend_view(request):
 
 def signup_page(request):
     if request.method=="POST":
-        username = request.POST.get("username")
+        fullname = request.POST.get("fullname")
         email = request.POST.get("email")
         pass1 = request.POST.get("pass1")
         pass2 = request.POST.get("pass2")
         if pass1 != pass2:
             return render(request, "recommender/signup.html", {"passdidnotmatch": True})
-        if username and email and pass1:
-            user = User.objects.create_user(username, email, pass1)
+        if fullname and email and pass1:
+            user = User.objects.create(username=email,email=email,password=pass1, fullname=fullname)
             user.save()
-            return render(request, "recommender/login.html", {"usercreated": True, "user_full_name": username})
+            return render(request, "recommender/login.html", {"usercreated": True})
     return render(request, "recommender/signup.html", {})
 
 def login_page(request):
+    if request.method=="POST":
+        email = request.POST.get("email")
+        password = request.POST.get("passwd")
+
+        user = authenticate(request, username=email, email=email, password=password)
+        if user is not None:
+            # login(request, user)
+            print("Authentication OK")
+        else:
+            return render(request, "recommender/login.html", {"userorpasserror": True})
+        
     return render(request, "recommender/login.html", {})
