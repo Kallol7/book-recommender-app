@@ -1,0 +1,54 @@
+{% extends "recommender/base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-4 mx-auto px-5 py-5 form-container">
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="username" class="form-label">Full Name</label>
+                <input type="text" placeholder="enter your full name" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="username" name="username" aria-describedby="userHelp" required>
+                <!-- <div id="emailHelp" class="form-text">Please enter your full name.</div> -->
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" placeholder="your email" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            <div class="mb-3">
+                <label for="pass1" class="form-label">Password</label>
+                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="pass1" name="pass1" required>
+                <!-- <div id="passwordHelp" class="form-text">Enter your password</div> -->
+            </div>
+            <div class="mb-3">
+                <label for="pass2" class="form-label">Confirm Password</label>
+                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="pass2" name="pass2" required>
+                <div id="passwordConfirm" class="form-text">
+                    {% if passdidnotmatch %}
+                        <span class="text-danger" role="alert">
+                            Passwords did not match.
+                        </span>
+                    {% else %} 
+                        Please confirm your password.
+                    {% endif %}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-outline-secondary btn-hover">Submit</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+    let previousStyle;
+    function focusOverride(inputElement) {
+        previousStyle = inputElement.style;
+        inputElement.style.borderColor = "rgba(130, 134, 173, 0.8)";
+        inputElement.style.boxShadow = "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(161, 164, 207, 0.6)";
+        inputElement.style.outline = "0 none";
+    }
+    function restoreValue(inputElement) {
+        inputElement.style = previousStyle;
+    }
+</script>
+{% endblock %}

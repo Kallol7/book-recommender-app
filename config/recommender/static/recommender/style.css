@@ -8,7 +8,7 @@ input[type="search"]:focus {
     outline: 0 none;
 }
 
-.btn-hover:hover{
+.btn-hover:hover {
   color: white;
   background-color: gray;
   border-color: #999;

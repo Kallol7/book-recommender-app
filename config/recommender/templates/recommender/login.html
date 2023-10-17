@@ -1,0 +1,41 @@
+{% extends "recommender/base.html" %}
+
+{% block content %}
+<div class="row mt-5">
+    <div class="col-4 mx-auto px-5 py-5 form-container">
+        {% if usercreated %}
+        <div class="alert alert-success my-4 py-0 text-green text-center" role="alert">
+            <h6 class="alert-heading m-0 p-2">Welcome!</h6>
+        </div>
+        {% endif %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" placeholder="" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
+                <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+            </div>
+            <div class="mb-3">
+                <label for="pass1" class="form-label">Password</label>
+                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="pass1" name="pass1" required>
+                <!-- <div id="passwordHelp" class="form-text">Enter your password</div> -->
+            </div>
+            <button type="submit" class="btn btn-outline-secondary btn-hover">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    let previousStyle;
+    function focusOverride(inputElement) {
+        previousStyle = inputElement.style;
+        inputElement.style.borderColor = "rgba(130, 134, 173, 0.8)";
+        inputElement.style.boxShadow = "0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(161, 164, 207, 0.6)";
+        inputElement.style.outline = "0 none";
+    }
+    function restoreValue(inputElement) {
+        inputElement.style = previousStyle;
+    }
+</script>
+{% endblock %}
+
