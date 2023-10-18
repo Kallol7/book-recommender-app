@@ -2,8 +2,8 @@ import os
 import json
 
 def create_one_json():
-    book_files = os.listdir("recommender/scripts/json/")
-    book_files = [os.path.join("recommender/scripts/json/",i) for i in book_files] # [os.path.realpath(i) for i in book_name]
+    book_files = os.listdir("recommender/scripts/json_dummy/")
+    book_files = [os.path.join("recommender/scripts/json_dummy/",i) for i in book_files] # [os.path.realpath(i) for i in book_name]
     print(book_files)
 
     d = {}
