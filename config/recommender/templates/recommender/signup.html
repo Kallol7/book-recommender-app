@@ -3,17 +3,22 @@
 {% block content %}
 <div class="row">
     <div class="col-4 mx-auto px-5 py-5 form-container">
-        <form method="post" action="{% url 'signup' %}" id="signupform">
+        {% if user.is_authenticated  %}
+            <div class="alert alert-success my-4 py-0 text-green text-center" role="alert">
+                <h6 class="alert-heading m-0 p-2">You are Logged In!<br>Please Log Out First</h6>
+            </div>
+        {% endif %}
+        <form method="post" action="{% url 'signup' %}" id="signupform" autocomplete="on">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="fullname" class="form-label">Name</label>
-                <input type="text" placeholder="Full Name" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="fullname" name="fullname" aria-describedby="nameHelp" required>
+                <input type="text" placeholder="(e.g. John Doe)" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="fullname" name="fullname" aria-describedby="nameHelp" required>
                 <!-- <div id="nameHelp" class="form-text">Please enter your full name.</div> -->
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" 
-                    placeholder = " {% if useralredyexists %}Enter a valid email address{% else %}Enter email{% endif %} " 
+                    placeholder = " {% if useralredyexists %}Enter email{% else %}This will be your username.{% endif %} " 
                     onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="email" 
                     name="email" aria-describedby="emailHelp" 
                 required>
@@ -38,6 +43,10 @@
                         <span class="text-danger" role="alert">
                             Passwords did not match.
                         </span>
+                    {% elif somethingwentwrong %}
+                    <span class="text-danger" role="alert">
+                        Something went wrong!
+                    </span>
                     {% else %} 
                         Please confirm your password.
                     {% endif %}

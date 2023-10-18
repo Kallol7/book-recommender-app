@@ -3,27 +3,44 @@
 {% block content %}
 <div class="row mt-5">
     <div class="col-4 mx-auto px-5 py-5 form-container">
-        {% if usercreated %}
-        <div class="alert alert-success my-4 py-0 text-green text-center" role="alert">
-            <h6 class="alert-heading m-0 p-2">Welcome!</h6>
-        </div>
-        {% elif userorpasserror %}
-        <div class="alert alert-danger my-4 py-0 text-red text-center" role="alert">
-            <h6 class="alert-heading m-0 p-2">Incorrect username or password</h6>
-        </div>
+        {% if usercreated  %}
+            <div class="alert alert-success my-4 py-0 text-green text-center" role="alert">
+                <h6 class="alert-heading m-0 p-2">Welcome!</h6>
+            </div>
+        {% elif logoutsuccess  %}
+            <div class="alert alert-success my-4 py-0 text-green text-center" role="alert">
+                <h6 class="alert-heading m-0 p-2">Logged out successfully!</h6>
+            </div>
         {% endif %}
-        <form method="post" action="{% url 'login' %}" if="loginform">
+
+        <form method="post" action="{% url 'login' %}" if="loginform" autocomplete="on">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" placeholder="" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="email" name="email" aria-describedby="emailHelp" required>
+                <input type="email" placeholder="" onfocus="focusOverride(this)" 
+                    onblur="restoreValue(this)" class="form-control" id="email" name="email" aria-describedby="emailHelp" 
+                required autocomplete="email">
                 <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
             </div>
             <div class="mb-3">
                 <label for="passwd" class="form-label">Password</label>
-                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" id="passwd" name="passwd" required>
+                <input type="password" onfocus="focusOverride(this)" onblur="restoreValue(this)" class="form-control" 
+                    id="passwd" name="passwd" 
+                required autocomplete="off">
                 <!-- <div id="passwordHelp" class="form-text">Enter your password</div> -->
             </div>
+            {% if userorpasserror %}
+            <div class="mb-3">
+                <!-- <div class="alert alert-danger my-4 py-0 text-red text-center" role="alert">
+                    <h6 class="alert-heading m-0 p-2">Incorrect Username or Password</h6>
+                </div> -->
+                <div id="errorinfo" class="form-text">
+                    <span class="text-danger" role="alert">
+                        Incorrect username or password.
+                    </span>
+                </div>
+            </div>
+            {% endif %}
             <button type="submit" class="btn btn-outline-secondary btn-hover">Submit</button>
         </form>
     </div>
