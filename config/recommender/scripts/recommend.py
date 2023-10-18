@@ -7,7 +7,7 @@ from django.utils import timezone
 import pandas as pd
 
 books_dict = {}
-with open("recommender/scripts/cleaned_one.json", 'r',encoding="utf-8") as f:
+with open("recommender/scripts/cleaned_one_dummy.json", 'r',encoding="utf-8") as f:
     books_dict = json.load(f)
 
 def update():

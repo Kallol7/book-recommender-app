@@ -29,7 +29,7 @@ def clean_one():
         
         books_dict[book] = new_words
 
-    with open("recommender/scripts/cleaned_one.json","w",encoding="utf-8") as f:
+    with open("recommender/scripts/cleaned_one_dummy.json","w",encoding="utf-8") as f:
         json.dump(books_dict,f,ensure_ascii=False)
         print("file one.json has been cleaned using wordmap")
 

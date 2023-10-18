@@ -7,7 +7,7 @@ import json
 
 def run_lda():
     d = {}
-    with open("recommender/scripts/cleaned_one.json","r",encoding="UTF-8") as fp:
+    with open("recommender/scripts/cleaned_one_dummy.json","r",encoding="UTF-8") as fp:
         d = json.load(fp)
 
 
