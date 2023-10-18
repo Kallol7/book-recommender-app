@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect
 
 from .scripts import recommend
 from .scripts.create_one_json import create_one_json
-from .scripts.clean_one import clean_one
+
+# usign dummy, not the real one
+from .scripts.clean_one_dummy import clean_one
+
 from django.contrib.auth import authenticate, login, logout
 from .models import User
 from django.db import IntegrityError
@@ -10,10 +13,10 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 
 # Create your views here.
 def home(request):
-    book_name = "নক্ষত্রের রাত"
+    book_name = "অদ্ভুত সব গল্প"
     closests = recommend.recommend_from_csv(book_name)
     closests = [i.split(",") for i in closests]
-    closests = [(a[2:-1],b[2:-1]) for a,b in closests]
+    # closests = [(a[2:-1],b[2:-1]) for (a,b) in closests]
     return render(request, "recommender/home.html", {"closests": closests})
 
 def is_staff(user):
@@ -26,6 +29,7 @@ def is_staff(user):
 def clean(request):
     create_one_json()
     clean_one()
+    recommend.run_lda_view()
     return render(request, "recommender/clean.html", {})
 
 @user_passes_test(is_staff, login_url="admin:login")

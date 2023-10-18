@@ -7,7 +7,7 @@ import json
 
 def run_lda():
     d = {}
-    with open("cleaned_one.json","r",encoding="UTF-8") as fp:
+    with open("recommender/scripts/cleaned_one.json","r",encoding="UTF-8") as fp:
         d = json.load(fp)
 
 
@@ -50,7 +50,7 @@ def run_lda():
     #     print(texts[cnt][:30])
     #     print("Document",cnt+1, "talks about topic", (topic_idx+1), "\n")
     # Create a NearestNeighbors model (using Euclidean distance here)
-    model_knn = NearestNeighbors(metric='euclidean', algorithm='brute', n_neighbors=10, n_jobs=-1)
+    model_knn = NearestNeighbors(metric='euclidean', algorithm='brute', n_neighbors=4, n_jobs=-1)
 
     # Fit the model to your data
     model_knn.fit(document_topic_dist)

@@ -1,6 +1,7 @@
 import json
 from .data_restructuring import dictionary_to_dataframe
 from .cosine_with_pca import find_closest_books_with_pca
+from .lda_dummy import run_lda
 from recommender.models import Book
 from django.utils import timezone
 import pandas as pd
@@ -49,15 +50,18 @@ def recommendations():
     return Book.objects.all()
 
 def recommend_from_csv(book_name):
-    df = pd.read_csv("recommender/scripts/lda_result_400K_stopper.csv", index_col=0, header=0)
+    df = pd.read_csv("recommender/scripts/lda_result_dummy.csv", index_col=0, header=0)
     if book_name in df.index:
         return df.loc[book_name]
     else:
         return ["Not Found"]
 
 def get_csv_as_html():
-    df = pd.read_csv("recommender/scripts/lda_result_400K_stopper.csv", index_col=0, header=0)
+    df = pd.read_csv("recommender/scripts/lda_result_dummy.csv", index_col=0, header=0)
     return df.to_html()
+
+def run_lda_view():
+    run_lda()
 
 if __name__=="__name__":
     df = dictionary_to_dataframe(books_dict)
