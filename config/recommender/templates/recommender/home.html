@@ -1,9 +1,15 @@
 {% extends "recommender/base.html" %}
 
 {% block content %}
-<ul>
-    {% for closest in closests%}
-        <li>{{closest}}</li>
-    {% endfor %}
-</ul>
+<section>
+    <h4>↓ Recommendations based on similarity</h4>
+    <section>
+        <h6 class="mt-3">নক্ষত্রের রাত:</h6>
+        <ul class="mt-3">
+            {% for closest in closests%}
+                <li>{{closest.0}} ( 0{{closest.1}} )</li>
+            {% endfor %}
+        </ul>
+    </section>
+</section>
 {% endblock %}

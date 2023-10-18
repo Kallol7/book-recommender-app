@@ -12,6 +12,8 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 def home(request):
     book_name = "নক্ষত্রের রাত"
     closests = recommend.recommend_from_csv(book_name)
+    closests = [i.split(",") for i in closests]
+    closests = [(a[2:-1],b[2:-1]) for a,b in closests]
     return render(request, "recommender/home.html", {"closests": closests})
 
 def is_staff(user):
@@ -20,13 +22,13 @@ def is_staff(user):
     # 'pk', 'save', 'set_password', 'user_permissions', 'username'
     return user.is_active and user.is_staff
 
-@user_passes_test(is_staff, login_url="login")
+@user_passes_test(is_staff, login_url="admin:login")
 def clean(request):
     create_one_json()
     clean_one()
     return render(request, "recommender/clean.html", {})
 
-@user_passes_test(is_staff, login_url="login")
+@user_passes_test(is_staff, login_url="admin:login")
 def update(request):
     updates = recommend.update()
     return render(request, "recommender/update.html", {"updates": updates})
