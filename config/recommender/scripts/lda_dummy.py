@@ -65,7 +65,7 @@ def run_lda():
     df = pd.DataFrame(idx_dist_pair, index=book_names)
     # display(df.head(5))
     df = df.iloc[:10]
-    df.to_csv("lda_result_dummy.csv", encoding="UTF-8", float_format='%1.2f')
+    df.to_csv("recommender/scripts/lda_result_dummy.csv", encoding="UTF-8", float_format='%1.2f')
     # For each distribution, print the indices of the 5 closest distributions
     # for i in range(10): # len(document_topic_dist)
     #     # print(f"Document {i} is closest to documents {indices[i][1:]}.")
