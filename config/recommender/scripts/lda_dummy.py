@@ -24,7 +24,7 @@ def run_lda():
     texts_transformed = vectorizer.fit_transform(texts)
 
     words=vectorizer.get_feature_names_out()
-    with open("out.json","w",encoding="utf-8") as fp:
+    with open("recommender/scripts/out.json","w",encoding="utf-8") as fp:
         json.dump(list(words),fp,ensure_ascii=False)
 
     # print('সূচক' in words)
