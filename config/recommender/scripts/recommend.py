@@ -56,6 +56,13 @@ def recommend_from_csv(book_name):
     else:
         return ["Not Found"]
 
+def sigle_item_from_csv(pk):
+    df = pd.read_csv("recommender/scripts/lda_result_dummy.csv", index_col=0, header=0)
+    if pk>=0 and pk<len(df):
+        return df.index[pk],df.iloc[pk]
+    else:
+        return f"Item {pk}",["Not Found"]
+
 def get_csv_as_html():
     df = pd.read_csv("recommender/scripts/lda_result_dummy.csv", index_col=0, header=0)
     return df.to_html()

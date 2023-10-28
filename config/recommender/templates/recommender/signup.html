@@ -8,7 +8,7 @@
                 <h6 class="alert-heading m-0 p-2">You are Logged In!<br>Please Log Out First</h6>
             </div>
         {% endif %}
-        <form method="post" action="{% url 'signup' %}" id="signupform" autocomplete="on">
+        <form method="post" action="{% url 'signup' %}" id="signupform" autocomplete="off">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="fullname" class="form-label">Name</label>
