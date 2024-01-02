@@ -1,5 +1,5 @@
 # book-recommender-app
-## What it is?
+## What is this?
 1. A Django project.
 2. Recommends other books based on the contents of the chosen book.
 3. Whenever "Update" button is clicked recommendation list is updated.
